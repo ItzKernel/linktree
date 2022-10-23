@@ -1,4 +1,7 @@
-const background = document.getElementsByClassName("background")[0];
+const background = document.createElement("div");
+background.classList.add("background");
+document.body.prepend(background);
+
 const crossCount = 7;
 const catppuccinFilters = [
 	// theme: https://github.com/catppuccin/catppuccin (mocha palette)
@@ -6,6 +9,7 @@ const catppuccinFilters = [
 
 	// if you do something like this, don't forget to remove the semicolons from the end
 	// (because it fucked me in the ass)
+	"invert(5%) sepia(5%) saturate(6276%) hue-rotate(202deg) brightness(93%) contrast(89%)",
 	"invert(84%) sepia(7%) saturate(1375%) hue-rotate(279deg) brightness(101%) contrast(92%)",
 	"invert(74%) sepia(43%) saturate(977%) hue-rotate(202deg) brightness(99%) contrast(95%)",
 	"invert(84%) sepia(48%) saturate(2054%) hue-rotate(292deg) brightness(96%) contrast(98%)",
@@ -29,6 +33,7 @@ function generateRandomBetween(min, max) {
 }
 
 function generateBackground() {
+	background.innerHTML = ''; // clearing inner elements
 	const screenSize = getScreenSize();
 	
 	for (let i = 0; i < crossCount; i++) {
