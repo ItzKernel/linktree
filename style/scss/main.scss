@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap');
+@import "_palette";
+
+$border-radius: 1rem;
+
+body, html {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	font-family: 'Poppins', sans-serif;
+}
+
+body {
+	background-color: $crust;
+	color: $subtext0;
+}
+
+body > * {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+
+.main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.card {
+	background-color: $overlay0;
+	border-radius: $border-radius;
+	display: flex;
+	flex-direction: row;
+	box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.card__profile {
+	background-color: $base;
+	border-radius: $border-radius;
+	display: flex;
+	flex-direction: column;
+	padding: 3rem;
+	width: 15rem;
+
+	& > * {
+		margin: auto;
+	}
+}
+
+.card__profile__pfp {
+	width: 10rem;
+	border-radius: $border-radius;
+}
+
+.card__profile__name {
+	color: $text;
+	font-size: 2rem;
+	font-weight: 500;
+}
+
+.card__profile__description {
+	color: $subtext0;
+	text-align: justify;
+}
+
+.card__links {
+	background-color: $overlay0;
+	border-radius: 0 $border-radius $border-radius 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	padding: 1rem;
+
+	& > * img {
+		width: 2rem;
+		filter: invert(98%) sepia(36%) saturate(6575%) hue-rotate(178deg) brightness(94%) contrast(85%);
+	}
+}
