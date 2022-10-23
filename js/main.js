@@ -1,6 +1,8 @@
 const background = document.createElement("div");
 background.classList.add("background");
 document.body.prepend(background);
+background.style.transform = "translate(0px, 0px)";
+background.style.transition = `.2s`;
 
 const crossCount = 7;
 const catppuccinFilters = [
@@ -21,6 +23,16 @@ const catppuccinFilters = [
 	"invert(72%) sepia(12%) saturate(1196%) hue-rotate(196deg) brightness(103%) contrast(99%)",
 ];
 
+/*
+	{
+		elem: <elem>,
+		transform: {
+			<name>: <val>
+		},
+	}
+*/
+let crosses = [];
+
 function getScreenSize() {
 	return {
 		w: window.innerWidth,
@@ -32,23 +44,74 @@ function generateRandomBetween(min, max) {
 	return Math.floor(Math.random() * max) + min;
 }
 
+// skidded from stackoverflow haha
+function throttle(eventFunc, interval) {
+	let lastCall = 0;
+	return function() {
+        var now = Date.now();
+        if (lastCall + interval < now) {
+            lastCall = now;
+            return eventFunc.apply(this, arguments);
+        }
+    };
+}
+
+function parallax(e) {
+	const screenSize = getScreenSize();
+	const mouseX = e.clientX;
+	const mouseY = e.clientY;
+
+	const x = (mouseX - screenSize.w) * 0.001;
+	const y = (mouseY - screenSize.h) * 0.001;
+
+	for (let i = 0; i < crosses.length; i++) {
+		crosses[i].transform["translate"] = `${x * (i + 1) * 10}px, ${y * (i + 1) * 10}px`;
+	}
+
+	applyCrossTransforms();
+}
+
 function generateBackground() {
 	background.innerHTML = ''; // clearing inner elements
 	const screenSize = getScreenSize();
 	
 	for (let i = 0; i < crossCount; i++) {
 		let crossElement = document.createElement('img');
-		crossElement.classList.add("background__cross")
+		crossElement.classList.add("background__cross");
 		crossElement.src = "assets/x.svg";
 		crossElement.style.position = "fixed";
 
 		crossElement.style.top = `${generateRandomBetween(screenSize.h / 2 - screenSize.h, screenSize.h)}px`;
 		crossElement.style.left = `${generateRandomBetween(screenSize.w / 2 - screenSize.w, screenSize.w)}px`;
-		crossElement.style.transform = `rotate(${generateRandomBetween(0, 360)}deg) scale(${generateRandomBetween(0, 10) / 10})`;
 		crossElement.style.filter = catppuccinFilters[generateRandomBetween(0, catppuccinFilters.length)];
+		crossElement.style.transition = ".5s";
 
+		crosses.push({
+			elem: crossElement,
+			transform: {
+				"rotate": `${generateRandomBetween(0, 360)}deg`,
+				"scale": `${generateRandomBetween(0, 10) / 10}`,
+				"translate": "0px, 0px",
+			}
+		});
 		background.appendChild(crossElement);
+	}
+
+	applyCrossTransforms();
+}
+
+function applyCrossTransforms() {
+	for (let crossIndex in crosses) {
+		const cross = crosses[crossIndex];
+		let transformStrings = [];
+
+		for (let transformName of Object.keys(cross.transform)) {
+			transformStrings.push(`${transformName}(${cross.transform[transformName]})`);
+		}
+
+		crosses[crossIndex].elem.style.transform = transformStrings.join(' ');
 	}
 }
 
+document.addEventListener("mousemove", throttle(parallax, 100));
 generateBackground()
