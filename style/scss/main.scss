@@ -22,6 +22,10 @@ body > * {
 	height: 100vh;
 }
 
+.background {
+	user-select: none;
+}
+
 .main {
 	display: flex;
 	align-items: center;
@@ -85,6 +89,7 @@ body > * {
 		& img {
 			width: 2rem;
 			filter: invert(98%) sepia(36%) saturate(6575%) hue-rotate(178deg) brightness(94%) contrast(85%);
+			user-select: none;
 		}
 	}
 }
