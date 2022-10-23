@@ -39,10 +39,10 @@ function generateBackground() {
 	for (let i = 0; i < crossCount; i++) {
 		let crossElement = document.createElement('img');
 		crossElement.src = "assets/x.svg";
-		crossElement.style.position = "absolute";
+		crossElement.style.position = "fixed";
 
-		crossElement.style.top = `${generateRandomBetween(screenSize.h / 2 - screenSize.h, screenSize.h / 2 + screenSize.h)}px`;
-		crossElement.style.left = `${generateRandomBetween(screenSize.w / 2 - screenSize.w, screenSize.w / 2 + screenSize.w)}px`;
+		crossElement.style.top = `${generateRandomBetween(screenSize.h / 2 - screenSize.h, screenSize.h)}px`;
+		crossElement.style.left = `${generateRandomBetween(screenSize.w / 2 - screenSize.w, screenSize.w)}px`;
 		crossElement.style.transform = `rotate(${generateRandomBetween(0, 360)}deg) scale(${generateRandomBetween(0, 10) / 10})`;
 		crossElement.style.filter = catppuccinFilters[generateRandomBetween(0, catppuccinFilters.length)];
 
