@@ -2,6 +2,7 @@
 @import "_palette";
 
 $border-radius: 1rem;
+$link-transition: .3s cubic-bezier(0.68, -1.6, 0.32, 2.6);
 
 body, html {
 	width: 100vw;
@@ -72,9 +73,18 @@ body > * {
 	flex-direction: column;
 	justify-content: space-evenly;
 	padding: 1rem;
+	
+	& > * {
+		transition: $link-transition;
 
-	& > * img {
-		width: 2rem;
-		filter: invert(98%) sepia(36%) saturate(6575%) hue-rotate(178deg) brightness(94%) contrast(85%);
+		&:hover {
+			transition: $link-transition;
+			transform: translateY(-3px);
+		}
+
+		& img {
+			width: 2rem;
+			filter: invert(98%) sepia(36%) saturate(6575%) hue-rotate(178deg) brightness(94%) contrast(85%);
+		}
 	}
 }

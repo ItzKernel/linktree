@@ -38,6 +38,7 @@ function generateBackground() {
 	
 	for (let i = 0; i < crossCount; i++) {
 		let crossElement = document.createElement('img');
+		crossElement.classList.add("background__cross")
 		crossElement.src = "assets/x.svg";
 		crossElement.style.position = "fixed";
 
